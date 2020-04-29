@@ -95,7 +95,6 @@ abstract class ClusterShardingStatsSpec
         sharding.shardState ! GetClusterShardingStats(typeKey, queryTimeout, replyToProbe.ref)
 
         val stats = replyToProbe.receiveMessage(queryTimeout)
-        println(s"# stats: $stats") // FIXME
         stats.regions.size shouldEqual 3
         stats.regions.values.flatMap(_.stats.values).sum shouldEqual 2
         stats.regions.values.forall(_.failed.isEmpty) shouldBe true
